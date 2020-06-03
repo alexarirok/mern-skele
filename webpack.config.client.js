@@ -23,7 +23,13 @@ const config = {
                 use: [
                     'babel-loader'
                 ]
+            },
+            {
+                test: /\.(ttf|eot|svg|gif|jpg|png|jpeg)?$/,
+                use: 'file-loader'
+
             }
+            
         ]
     },
     plugins: [

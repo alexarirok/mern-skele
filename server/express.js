@@ -4,12 +4,17 @@ import cookieParser from 'cookie-parser'
 import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
-import Main from './../main'
+import Template from './../template'
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
+import devBundle from './devBundle'
+import path from 'path'
 
 const app = express()
+devBundle.compile(app)
 
+const CURRENT_WORKING_DIR = process.cwd()
+app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -21,7 +26,7 @@ app.use('/', userRoutes)
 app.use('/', authRoutes)
 
 app.get('/', (req, res) => {
-    res.status(200).send(Main())
+    res.status(200).send(Template())
 })
 
 app.use((err, req, res, next) => {
