@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import computersImg from './../assets/images/computers.jpeg'
-import theme from '../theme'
+
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -19,6 +19,15 @@ const useStyles = makeStyles(theme => ({
     },
     media: {
         minHeight: 400
+    },
+    credit: {
+        padding: 10,
+        textAlign: 'right',
+        backgroundColor: '#ededed',
+        borderBottom: '1px solid #d0d0d0',
+        '& a': {
+            color: '#3f4771'
+        }
     }
 }))
 
@@ -30,8 +39,10 @@ export default function Home() {
                     Home Page
                 </Typography>
                 <CardMedia className={classes.media} image={computersImg} title="Computers"/>
+                <Typography variant="body2" component="p" className={classes.credit} color="textSecondary">Photo by alex </Typography>
                 <CardContent>
-                    <Typography variant="body2" component="p">
+                    
+                    <Typography variant="body1" component="p">
                         Welcome to our Home Page
                     </Typography>
                 </CardContent>

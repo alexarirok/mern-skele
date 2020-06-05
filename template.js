@@ -8,8 +8,9 @@ export default () => {
                 <link href="https://fonts.google.com/specimen/Roboto?selection.family=Roboto:wght@100;400" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             </head>
-            <body>
-                <div id="root"> Hello World <p>Hi everyone welcome home</p> </div>
+            <body style="margin:0">
+                <div id="root"> ${markup} </div>
+                <style id="jss-server-side">${css}</style>
                 <script type="text/javascript" src="/dist/bundle.js"></script>
             </body>
         </html>`
