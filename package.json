@@ -36,7 +36,7 @@
   "name": "mern-skeloton",
   "version": "version 2.0.0",
   "description": "starting up mern skeloton for practice",
-  "main": "template.js",
+  "main": "./dist/server.generated.js",
   "repository": "https://github.com/alexarirok/mern-skeleton.git",
   "author": "alexarirok <akorir233@gmail.com>",
   "license": "MIT",

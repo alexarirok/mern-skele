@@ -1,26 +1,29 @@
-import { signout } from "./api-auth"
+import { signout } from "./api-auth.js"
 
-Authenticate(jwt, cb) {
-    if(typeof window !== "undefined")
-        sessionStorage.setItem('jwt', JSON.stringify(jwt))
-    cb()
+const auth = {
+    isAuthenticated() {
+        if(typeof window == "undefined")
+            return false
+        if (sessionStorage.getItem('jwt'))
+            return JSON.parse(sessionStorage.getItem('jwt'))
+        else
+            return false 
+    },
+
+    Authenticate(jwt, cb) {
+        if(typeof window !== "undefined")
+            sessionStorage.setItem('jwt', JSON.stringify(jwt))
+        cb()
+    },
+    
+    clearJWT(cb) {
+        if(typeof window !== "undefined")
+            sessionStorage.removeItem('jwt')
+        cb()
+        signout().then((data) => {
+            document.cookie = "t=; expires=Fri, 05 june 2020 00:00:00 UTC; path=/;"
+        })
+    }
 }
 
-isAuthenticated() {
-    if(typeof window == "undefined")
-        return false
-    if (sessionStorage.getItem('jwt'))
-        return JSON.parse(sessionStorage.getItem('jwt'))
-    else
-        return false 
-
-}
-
-clearJWT(cb) {
-    if(typeof window !== "undefined")
-        sessionStorage.removeItem('jwt')
-    cb()
-    signout().then((data) => {
-        document.cookie = "t=; expires=Thu, 01 jan 1970 00:00:00 UTC; path=/;"
-    })
-}
+export default auth

@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography'
 import ArrowForward from '@material-ui/icons/ArrowForward'
 import Person from '@material-ui/icons/Person'
 import {Link } from 'react-router-dom'
-import { list } from "./api-user"
+import { list } from "./api-user.js"
 
 const useStyles = makeStyles(theme => ({
     root: theme.mixins.gutters({
@@ -20,10 +20,11 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(5)
     }),
     title: {
-        margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
+        margin: `${theme.spacing(6)}px 0 ${theme.spacing(3)}px`,
         color: theme.palatte.openTitle
     }
 }))
+
 export default function Users () {
     const classes = useStyles()
     const [users, setUsers] = useState([])
@@ -40,6 +41,7 @@ export default function Users () {
                 setUsers(data)
             }
         })
+
         return function cleanup(){
             abortController.abort()
         }

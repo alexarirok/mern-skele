@@ -1,14 +1,15 @@
 import React, {useState} from 'react'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import Icon from '@material-ui/Core/Icon'
+import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/core/styles'
 import auth from './../auth/auth-helper'
-import {Redirect} from 'react-router-dom'
-import {signin} from './api-auth.js'
+import { Redirect } from 'react-router-dom'
+import { signin } from './api-auth.js'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Signin(props) {
+    const classes = useStyles()
     const [values, setValues] = useState({
         email:',',
         password:'',
@@ -44,37 +46,37 @@ export default function Signin(props) {
         redirectToReferrer: false
     })
 
-const clickSubmit = () => {
-    const user = {
-        email: values.email || undefined,
-        password: values.password || undefined
-    }
-
-    signin(user).then((data) => {
-        if (data.error) {
-            setValues({ ...values, error: data.error})
-        } else {
-            auth.authenticate(data, () => {
-                setValues({ ...values, error: '',redirectToReferrer:true})
-            })
+    const clickSubmit = () => {
+        const user = {
+            email: values.email || undefined,
+            password: values.password || undefined
         }
-    })
-}
 
-const handleChange = name => event => {
-    setValues({...values, [name]: event.target.value })
-}
-
-const {from} = props.location.state || {
-    from: {
-        pathname: '/'
+        signin(user).then((data) => {
+            if (data.error) {
+                setValues({ ...values, error: data.error})
+            } else {
+                auth.authenticate(data, () => {
+                    setValues({ ...values, error: '',redirectToReferrer: true})
+                })
+            }
+        })
     }
-}
 
-const {redirectToReferrer} = values 
-if (redirectToReferrer) {
-    return (<Redirect to={from}/>)
-}
+    const handleChange = name => event => {
+        setValues({...values, [name]: event.target.value })
+    }
+
+    const {from} = props.location.state || {
+        from: {
+            pathname: '/'
+        }
+    }
+
+    const {redirectToReferrer} = values 
+    if (redirectToReferrer) {
+        return (<Redirect to={from}/>)
+    }
 
     return (
         <Card className={classes.card}>

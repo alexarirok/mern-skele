@@ -32,6 +32,12 @@ const userByID = async (req, res, next, id) => {
     }
 }
 
+const read = (req, res) => { 
+    req.profile.hashed_password = undefined
+    req.peofile.salt = undefined 
+    return res.json(req.profile)
+ }
+
 const list = async (req, res) => {
     try {
         let users = await User.find().select('name email updated created')
@@ -43,11 +49,7 @@ const list = async (req, res) => {
     }
 }
 
-const read = (req, res) => { 
-    req.profile.hashed_password = undefined
-    req.peofile.salt = undefined 
-    return res.json(req.profile)
- }
+
 const update = async(req, res) => {
     try {
         let user = req.profile
@@ -72,7 +74,7 @@ const remove = async(req, res) => {
         res.json(deletedUser)
     } catch (err) {
         return res.status(400).json({
-            error: errorHandler.getErrorMessage
+            error: errorHandler.getErrorMessage(err)
         })
     }
 }
